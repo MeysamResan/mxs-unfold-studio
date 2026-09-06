@@ -27,7 +27,8 @@ test('bottom controller collapses without losing the scene or control state', as
     )
     .toBeLessThan(1);
   const expanded = await page.locator('.stage').boundingBox();
-  expect(expanded!.height).toBeGreaterThan(before!.height + 100);
+  expect(expanded!.height).toBeCloseTo(before!.height, 1);
+  expect(expanded!.width).toBeCloseTo(before!.width, 1);
   await expect
     .poll(() => page.evaluate(() => window.__UNFOLD_DEBUG__!.projection!.focalPixels))
     .toBeCloseTo(focalPixels, 1);
@@ -71,4 +72,55 @@ test('right-aligned layout tools and a persistent theme keep the same viewer', a
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(errors).toEqual([]);
+});
+
+test('the canvas extends beside the controller and its clear gutter stays interactive', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await page.waitForFunction(() => Boolean(window.__UNFOLD_DEBUG__?.camera?.target));
+  const workspace = await page.locator('.workspace').boundingBox();
+  const canvas = await page.locator('canvas').boundingBox();
+  const dock = await page.locator('.controls-dock').boundingBox();
+  expect(workspace).not.toBeNull();
+  expect(canvas).not.toBeNull();
+  expect(dock).not.toBeNull();
+  expect(canvas!.y + canvas!.height).toBeCloseTo(workspace!.y + workspace!.height, 1);
+  expect(canvas!.y + canvas!.height).toBeGreaterThan(dock!.y + dock!.height);
+  expect(canvas!.width).toBeCloseTo(workspace!.width, 1);
+
+  const gutter = { x: canvas!.x + 6, y: dock!.y + 24 };
+  expect(gutter.x).toBeLessThan(dock!.x);
+  expect(await page.evaluate(({ x, y }) => document.elementFromPoint(x, y)?.tagName, gutter)).toBe(
+    'CANVAS',
+  );
+  const button = await page.getByRole('button', { name: 'Mute sounds' }).boundingBox();
+  expect(
+    await page.evaluate(
+      ({ x, y }) => document.elementFromPoint(x, y)?.closest('button')?.getAttribute('aria-label'),
+      {
+        x: button!.x + button!.width / 2,
+        y: button!.y + button!.height / 2,
+      },
+    ),
+  ).toBe('Mute sounds');
+
+  const before = await page.evaluate(() => window.__UNFOLD_DEBUG__!.camera.quaternion);
+  await page.mouse.move(gutter.x, gutter.y);
+  await page.mouse.down();
+  await page.mouse.move(gutter.x, gutter.y + 36, { steps: 8 });
+  await page.mouse.up();
+  await expect
+    .poll(() =>
+      page.evaluate(
+        (previous) =>
+          Math.max(
+            ...window.__UNFOLD_DEBUG__!.camera.quaternion.map((value, index) =>
+              Math.abs(value - previous[index]),
+            ),
+          ),
+        before,
+      ),
+    )
+    .toBeGreaterThan(0.001);
 });

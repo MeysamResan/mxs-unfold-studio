@@ -1,21 +1,17 @@
 .workspace {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  isolation: isolate;
   min-width: 0;
   min-height: 0;
   background: var(--studio-background);
   height: 100%;
-  padding-top: 12px;
 }
 
 .stage {
-  flex: 1;
-  min-height: 220px;
-  position: relative;
+  position: absolute;
+  inset: 0;
   isolation: isolate;
   overflow: hidden;
-  margin: 0 12px;
 }
 
 .stage > div:has(canvas) {
@@ -67,9 +63,9 @@
 
 .stage-caption {
   position: absolute;
-  bottom: 16px;
-  left: 10px;
-  right: 10px;
+  top: 16px;
+  left: 16px;
+  right: 16px;
   z-index: 2;
   display: flex;
   justify-content: flex-end;

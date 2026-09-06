@@ -1,11 +1,12 @@
 # Unfold Studio architecture
 
-Unfold Studio is a static browser application. Cloudflare serves the application; the browser owns the 3D scene. The catalogue can grow without loading more than the selected model.
+Unfold Studio renders in the browser. A small Cloudflare Worker forwards page-entry requests and records request metrics; browser bundles and media use direct static delivery. The browser owns the 3D scene, and the catalogue can grow without loading more than the selected model.
 
 ## Boundaries
 
 | Directory                | Owns                                                          | Must not own                          |
 | ------------------------ | ------------------------------------------------------------- | ------------------------------------- |
+| `worker`                 | Page-entry delivery and request observability                 | React, Three.js, application state    |
 | `src/core/catalog`       | Content contracts and capability validation                   | React, Three.js, individual subjects  |
 | `src/core/viewer`        | Pure view transitions and quality policy                      | DOM, asset loading, mesh construction |
 | `src/core/assets`        | Delivery URL resolution and reference-counted resource leases | Interface state, model-specific names |
@@ -18,6 +19,10 @@ Unfold Studio is a static browser application. Cloudflare serves the application
 | `src/features/layout`    | Independent panel visibility controls                         | Camera and model state                |
 | `src/app`                | Composition, current selection, dialogs                       | Per-frame work                        |
 | `src/shared`             | Small reusable browser/UI utilities                           | Domain rules                          |
+
+The Worker has its own generated runtime types and TypeScript check. Its modules build into `dist/worker`, and browser assets build into `dist/client`; the build guard rejects overlapping directories. The deployment entry remains `dist/wrangler.json`. See [deployment and metrics](DEPLOYMENT.md) for route patterns and log fields.
+
+The viewer canvas fills the workspace. The controller overlays the canvas, and only its compact card intercepts input; transparent space beside it remains part of the scene. Toggling the controller does not resize the canvas or change the camera.
 
 The dependency direction is **app → features → core**, with content satisfying core contracts. A feature can be replaced without changing the catalogue contract. Keep core modules free of React and Three.js imports so logic stays independently testable.
 

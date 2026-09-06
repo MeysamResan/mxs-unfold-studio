@@ -5,16 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "tsc -b && vite build",
+    "build": "npm run typecheck && vite build && node scripts/check-worker-build.mjs",
     "preview": "vite preview --host 127.0.0.1",
-    "typecheck": "tsc -b",
+    "typecheck": "tsc -b && tsc -p tsconfig.worker.json",
     "test": "vitest run",
     "test:watch": "vitest",
     "assets:build": "node scripts/build-showcase.mjs",
     "check": "npm run typecheck && npm test && npm run build",
     "test:browser": "playwright test",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "cf:typegen": "wrangler types worker/worker-configuration.d.ts --config wrangler.jsonc"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",

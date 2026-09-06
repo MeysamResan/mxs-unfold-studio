@@ -133,9 +133,12 @@
   transform: translateX(14px);
 }
 .controller-region {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 5;
+  pointer-events: none;
   display: grid;
   grid-template-rows: 1fr;
-  flex: 0 0 auto;
   min-height: 0;
   opacity: 1;
   visibility: visible;

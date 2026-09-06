@@ -9,6 +9,7 @@
   container-type: inline-size;
 }
 .controls-dock {
+  pointer-events: auto;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;

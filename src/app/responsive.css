@@ -87,13 +87,8 @@
     max-height: 900px;
   }
 
-  .stage {
-    margin: 0 8px;
-    min-height: 270px;
-  }
-
   .stage-caption {
-    bottom: 10px;
+    top: 10px;
   }
 
   .inspector {

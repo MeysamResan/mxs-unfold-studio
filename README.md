@@ -40,7 +40,7 @@ All viewer actions are available through the on-screen controls. The top-right l
 
 ## Stack
 
-React, TypeScript, Vite, Tailwind CSS, Three.js, React Three Fiber, selected Drei helpers, native Web Audio, and Cloudflare Workers Static Assets. Media URLs support an R2 custom domain. Vitest verifies core logic; Playwright checks browser behavior.
+React, TypeScript, Vite, Tailwind CSS, Three.js, React Three Fiber, selected Drei helpers, native Web Audio, and Cloudflare Workers Static Assets. A small Worker handles page-entry requests for request metrics and country logs; models, textures, scripts, and other matching assets are served directly. Media URLs support an R2 custom domain. Vitest verifies core and Worker logic; Playwright checks browser behavior.
 
 ## Work on the project
 
@@ -48,10 +48,13 @@ React, TypeScript, Vite, Tailwind CSS, Three.js, React Three Fiber, selected Dre
 npm run check          # types, unit tests, production build
 npm run test:browser   # desktop + mobile browser checks
 npm run preview       # local production preview
+npm run cf:typegen    # regenerate Cloudflare binding/runtime types
 npm run assets:build  # reproduce the prepared artwork from its source GLB
 ```
 
 Install Playwright Chromium once with `npx playwright install chromium`, or set `PLAYWRIGHT_CHANNEL=chrome` to use an installed Chrome. Node/package dependencies are locked in `package-lock.json`; installation does not deploy the project.
+
+For Cloudflare's direct Git integration, set **Build command** to `npm run build` and **Deploy command** to `npx wrangler deploy --config dist/wrangler.json`. After a manual deployment, new page entries feed Worker request metrics and country logs; these are not unique-visitor counts. See the [deployment guide](docs/DEPLOYMENT.md#cloudflare-dashboard-git-integration-workers-builds) for the dashboard settings and a local dry run.
 
 ## Extend it
 

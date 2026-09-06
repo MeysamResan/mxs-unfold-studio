@@ -6,3 +6,4 @@ public/media
 package-lock.json
 test-results
 playwright-report
+worker/worker-configuration.d.ts
