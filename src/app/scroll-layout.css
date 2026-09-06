@@ -1,0 +1,14 @@
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
+.page-scroll {
+  height: 100dvh;
+}
+
+.modal-scroll {
+  min-width: 0;
+}

@@ -1,0 +1,81 @@
+.app-shell {
+  --header-height: 48px;
+  min-height: 100dvh;
+}
+
+.app-header {
+  height: var(--header-height);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 20px;
+  background: var(--surface-header);
+}
+
+.brand {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.7px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.brand-mark {
+  display: flex;
+  color: var(--accent);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.header-nav .icon-button {
+  color: var(--text-secondary);
+}
+
+.header-nav .icon-button:hover {
+  color: var(--text);
+  background: var(--hover-bg);
+}
+
+.creator-signature {
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin-right: 7px;
+}
+
+.studio-layout {
+  display: grid;
+  --left-panel-width: 240px;
+  --right-panel-width: 340px;
+  grid-template-columns: var(--left-panel-width) minmax(0, 1fr) var(--right-panel-width);
+  height: calc(100dvh - var(--header-height));
+  min-height: 640px;
+  background: var(--background);
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -70px;
+  padding: 12px 20px;
+  background: var(--accent-deep);
+  color: #fff;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+.studio-layout:fullscreen {
+  height: 100dvh;
+  min-height: 640px;
+}

@@ -1,0 +1,212 @@
+.catalog-sidebar {
+  min-width: 0;
+  min-height: 0;
+  background: var(--surface-sidebar);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.catalog-scroll {
+  flex: 1;
+  min-height: 0;
+}
+.catalog-scroll-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 0 12px 16px;
+}
+.catalog-sidebar-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18px 12px 14px;
+  flex: 0 0 auto;
+  min-height: 44px;
+}
+.category-tree {
+  display: grid;
+  gap: 12px;
+}
+.category-parent,
+.subcategory-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  border-radius: 4px;
+  text-align: left;
+  font-size: 16px;
+}
+.category-parent {
+  padding: 8px 9px;
+  font-weight: 550;
+}
+.category-parent > svg:first-child {
+  color: var(--accent);
+}
+.category-parent > span,
+.subcategory-button > span {
+  flex: 1;
+}
+.category-parent small,
+.subcategory-button small {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.category-parent > svg:last-child {
+  color: var(--muted);
+}
+.category-parent:hover,
+.subcategory-button:hover {
+  background: var(--hover-bg);
+}
+.category-children {
+  margin: 7px 0 0 7px;
+  border-left: 1px solid var(--control-border);
+  padding-left: 6px;
+}
+.subcategory-button {
+  color: var(--text-secondary);
+  padding: 8px;
+}
+.subcategory-button.is-expanded {
+  color: var(--text);
+  background: var(--hover-bg);
+}
+.subcategory-button > svg {
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+.subcategory-objects {
+  display: grid;
+  gap: 8px;
+  padding: 8px 0 12px 2px;
+}
+.catalog-object {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  color: var(--text-secondary);
+  background: var(--surface-raised);
+  border: 1px solid var(--control-border);
+  border-radius: 6px;
+  text-align: left;
+}
+.catalog-object:hover {
+  border-color: var(--accent-border);
+}
+.catalog-object.is-current {
+  color: var(--text);
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+.catalog-object-caption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 16px;
+  line-height: 1.4;
+}
+.catalog-object-caption > span:first-child {
+  flex: 1;
+}
+.catalog-current-dot {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 9px #ff303877;
+}
+.category-empty {
+  margin: 6px 8px 9px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.catalog-sidebar-embedded {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  overflow: visible;
+}
+.catalog-sidebar-embedded .catalog-sidebar-heading {
+  margin: 0 0 12px;
+}
+.catalog-search-field {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  align-items: center;
+  gap: 8px;
+  padding-left: 9px;
+  background: var(--surface-recessed);
+  border: 1px solid var(--control-border);
+  border-radius: 7px;
+  color: var(--muted);
+  transition:
+    border-color var(--motion-fast, 140ms),
+    background-color var(--motion-normal, 240ms);
+}
+.catalog-search-field:focus-within {
+  border-color: var(--accent-border);
+}
+.catalog-search-field > svg {
+  flex: 0 0 auto;
+}
+.catalog-search-field input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 16px;
+  color: var(--text);
+}
+.catalog-search-field input::placeholder {
+  color: var(--muted);
+}
+.catalog-search-field button {
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  flex: 0 0 32px;
+  border-radius: 0 6px 6px 0;
+}
+.catalog-search-field button:hover {
+  color: var(--text);
+  background: var(--hover-bg);
+}
+@keyframes search-reveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 0 65% round 7px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 round 7px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .catalog-search-field {
+    animation: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .catalog-search-field button {
+    flex-basis: 44px;
+  }
+}

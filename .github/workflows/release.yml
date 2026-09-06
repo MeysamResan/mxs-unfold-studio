@@ -1,0 +1,39 @@
+name: Release Unfold Studio (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      asset_base_url:
+        description: 'Optional public R2 asset origin, after you upload the versioned media'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mxs-unfold-studio-production
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      VITE_ASSET_BASE_URL: ${{ inputs.asset_base_url }}
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: node scripts/check-release-assets.mjs
+      - name: Publish the manually requested release
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy --config dist/wrangler.json

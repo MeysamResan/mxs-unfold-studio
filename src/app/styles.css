@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+@import './theme.css';
+@import '../shared/scroll-area.css';
+@import './shell.css';
+@import '../features/inspector/inspector.css';
+@import '../features/viewer/viewer.css';
+@import '../features/controls/controls.css';
+@import '../features/catalog/catalog.css';
+@import '../features/catalog/sidebar.css';
+@import '../shared/dialog.css';
+@import './responsive.css';
+@import './scroll-layout.css';
+@import '../features/layout/layout.css';
+
+@import './theme-modes.css';
+@import './motion.css';

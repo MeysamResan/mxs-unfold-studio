@@ -1,0 +1,294 @@
+:root {
+  --motion-fast: 140ms;
+  --motion-normal: 240ms;
+  --motion-slow: 360ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Theme changes share the same short, quiet transition as interactive surfaces. */
+:root,
+body,
+.app-shell,
+.app-header,
+.workspace,
+.catalog-sidebar,
+.inspector,
+.modal,
+.catalog-search-field,
+.object-thumbnail,
+.object-thumbnail-placeholder,
+.catalog-object-caption,
+.collection-card-details,
+.wikipedia-reference,
+.part-description,
+.asset-credit,
+.stage-caption,
+.stage-floor,
+.eyebrow,
+.object-subtitle,
+.object-description,
+.reference-heading,
+.reference-note,
+.reference-summary,
+.reference-facts dt,
+.reference-facts dd,
+.parts-heading,
+.part-number,
+.part-description p,
+.catalog-sidebar-footer,
+.about-copy > p,
+.modal-intro,
+.settings-section > p,
+.quality-options small {
+  transition:
+    color var(--motion-normal) ease,
+    background-color var(--motion-normal) ease,
+    border-color var(--motion-normal) ease,
+    box-shadow var(--motion-normal) ease;
+}
+
+button:not(.scene-label),
+a,
+.quality-options label {
+  transition:
+    color var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    box-shadow var(--motion-normal) ease,
+    opacity var(--motion-fast) ease,
+    transform var(--motion-normal) var(--ease-out),
+    scale var(--motion-fast) var(--ease-out);
+}
+
+button:not(:disabled, .scene-label):active,
+.reference-link:active,
+.text-link:active {
+  scale: 0.97;
+}
+
+.catalog-object,
+.collection-card,
+.quality-options label,
+.part-description-content,
+.viewer-message,
+.empty-message {
+  animation: content-arrive var(--motion-slow) var(--ease-out) backwards;
+}
+
+.object-thumbnail img {
+  transition: transform var(--motion-slow) var(--ease-out);
+}
+
+.part-button > svg,
+.reference-link > svg,
+.asset-credit > svg,
+.text-link > svg {
+  transition:
+    color var(--motion-fast) ease,
+    transform var(--motion-normal) var(--ease-out);
+}
+
+.part-button.is-selected > svg {
+  transform: translateX(2px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .catalog-object:hover,
+  .collection-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft, 0 8px 24px #0002);
+  }
+
+  .catalog-object:hover .object-thumbnail img,
+  .collection-card:hover .object-thumbnail img {
+    transform: scale(1.035);
+  }
+
+  .part-button:hover > svg {
+    transform: translateX(3px);
+  }
+
+  .reference-link:hover > svg,
+  .asset-credit:hover > svg,
+  .text-link:hover > svg {
+    transform: translate(2px, -2px);
+  }
+
+  .quality-options label:hover {
+    transform: translateX(2px);
+  }
+}
+
+.category-chevron {
+  transition: transform var(--motion-normal) var(--ease-out);
+}
+
+[aria-expanded='true'] > .category-chevron {
+  transform: rotate(90deg);
+}
+
+.category-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--motion-normal) var(--ease-out),
+    opacity var(--motion-fast) ease,
+    visibility 0s var(--motion-normal);
+}
+
+.category-reveal.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    grid-template-rows var(--motion-normal) var(--ease-out),
+    opacity var(--motion-normal) ease,
+    visibility 0s;
+}
+
+.category-reveal-clip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.inspector-content > .object-heading,
+.inspector-content > .object-description,
+.inspector-content > .wikipedia-reference,
+.inspector-content > .parts-heading,
+.inspector-content > .part-list,
+.inspector-content > .part-description,
+.inspector-content > .asset-credit {
+  animation: content-arrive var(--motion-slow) var(--ease-out) backwards;
+}
+
+.inspector-content > .object-description {
+  animation-delay: 25ms;
+}
+.inspector-content > .wikipedia-reference {
+  animation-delay: 50ms;
+}
+.inspector-content > .parts-heading,
+.inspector-content > .part-list {
+  animation-delay: 75ms;
+}
+.inspector-content > .part-description,
+.inspector-content > .asset-credit {
+  animation-delay: 100ms;
+}
+
+/* Label positions are written by the renderer; never transition their transforms. */
+.scene-label-overlay {
+  animation: fade-in var(--motion-normal) ease;
+}
+.scene-label {
+  transition:
+    color var(--motion-fast) ease,
+    background-color var(--motion-fast) ease,
+    border-color var(--motion-fast) ease,
+    box-shadow var(--motion-fast) ease;
+}
+.scene-label-leaders line,
+.scene-label-leaders circle {
+  transition:
+    stroke var(--motion-fast) ease,
+    fill var(--motion-fast) ease;
+}
+
+.modal[open] {
+  animation: modal-arrive var(--motion-normal) var(--ease-out) both;
+}
+.modal[open]::backdrop {
+  animation: fade-in var(--motion-normal) ease both;
+}
+.modal.is-closing[open] {
+  animation: modal-leave var(--motion-fast) ease-in both;
+}
+.modal.is-closing[open]::backdrop {
+  animation: fade-out var(--motion-fast) ease-in both;
+}
+
+.toast {
+  animation: notification-arrive var(--motion-normal) var(--ease-out);
+}
+
+.theme-toggle-icon {
+  transition: opacity var(--motion-normal) ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes content-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes modal-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes modal-leave {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+}
+@keyframes notification-arrive {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* This file is imported last so accessibility preferences cover every UI module. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-normal: 0ms;
+    --motion-slow: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after,
+  *::backdrop {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

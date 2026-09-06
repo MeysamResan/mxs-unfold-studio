@@ -1,0 +1,186 @@
+@import './mechanical-slider.css';
+
+.dock-region {
+  position: relative;
+  z-index: 5;
+  padding: 6px 16px 12px;
+  display: flex;
+  justify-content: center;
+  container-type: inline-size;
+}
+.controls-dock {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 8px;
+  width: 100%;
+  max-width: 700px;
+  border: 1px solid var(--control-border);
+  background: var(--surface-glass);
+  border-radius: 10px;
+  padding: 8px 10px;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(15px);
+}
+.object-actions {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+}
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 7px 9px;
+  border: 1px solid var(--control-border);
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 1.25;
+  white-space: nowrap;
+  background: var(--surface-recessed);
+  color: var(--text-secondary);
+}
+.action-button:not(:disabled):hover,
+.action-button.active {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.action-button:disabled:not(.active),
+.controls-tools .icon-button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+.action-button.active {
+  cursor: pointer;
+}
+.controls-tools {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.controls-tools .icon-button {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 8px;
+  border-radius: 6px;
+  color: var(--text-secondary);
+}
+.controls-tools .icon-button:not(:disabled):hover {
+  background: var(--hover-bg);
+  color: var(--text);
+}
+.controls-tools .icon-button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.controls-dock > .separation-control {
+  grid-column: 1/-1;
+  grid-row: 2;
+}
+.background-presets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.background-presets button {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--control-border);
+  border-radius: 8px;
+  padding: 12px 6px;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+.background-presets button.is-selected {
+  border-color: var(--accent);
+  color: var(--text);
+}
+.background-swatch {
+  display: block;
+  width: 44px;
+  height: 32px;
+  border-radius: 5px;
+  border: 1px solid var(--control-border);
+}
+.theme-swatch {
+  background: linear-gradient(135deg, #151515 50%, #f1f1f1 50%);
+}
+.background-custom {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+.background-custom input {
+  width: 48px;
+  height: 40px;
+  padding: 3px;
+  border: 1px solid var(--control-border);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.background-custom > span:last-child {
+  font-size: 14px;
+  color: var(--muted);
+}
+@container (max-width: 650px) {
+  .controls-dock {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+  .object-actions {
+    grid-column: 1;
+    justify-content: stretch;
+  }
+  .action-button {
+    flex: 1;
+    min-width: 0;
+  }
+  .controls-tools {
+    grid-column: 1;
+    grid-row: 3;
+    justify-content: center;
+  }
+  .controls-tools .icon-button {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+@container (max-width: 390px) {
+  .action-button {
+    padding-inline: 5px;
+  }
+  .action-button svg {
+    display: none;
+  }
+}
+@media (pointer: coarse) {
+  .action-button,
+  .controls-tools .icon-button {
+    min-height: 44px;
+  }
+  .controls-tools .icon-button {
+    min-width: 44px;
+  }
+}
+@media (max-width: 760px) {
+  .dock-region {
+    padding: 4px 12px 10px;
+  }
+}

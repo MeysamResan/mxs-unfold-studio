@@ -1,0 +1,190 @@
+.modal {
+  padding: 0;
+  border: 1px solid var(--control-border);
+  background: var(--surface);
+  color: var(--text);
+  width: min(550px, calc(100vw - 32px));
+  border-radius: 15px;
+  box-shadow: var(--shadow-dialog);
+  max-height: 90dvh;
+  margin: auto;
+  overflow: hidden;
+}
+
+.modal::backdrop {
+  background: var(--modal-backdrop);
+  backdrop-filter: blur(10px);
+}
+
+.modal-content {
+  padding: 28px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.7px;
+  font-weight: 450;
+  margin: 0;
+}
+
+.modal-intro {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0 0 22px;
+  line-height: 1.6;
+}
+
+.about-logo {
+  font-size: clamp(1.875rem, 7vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -1.5px;
+  line-height: 1.2;
+}
+
+.about-logo > span {
+  color: var(--accent);
+}
+
+.about-copy > p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.about-note {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--accent-border);
+  border-radius: 7px;
+  background: var(--accent-soft);
+  margin: 25px 0;
+  color: var(--accent-highlight);
+}
+
+.about-note p {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.text-link {
+  font-size: 1rem;
+  color: var(--accent);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.settings-section h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin: 24px 0 7px;
+}
+
+.settings-section > p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 0;
+  line-height: 1.6;
+}
+
+.quality-options {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.quality-options label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--control-border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.quality-options label.checked {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+}
+
+.quality-options input {
+  accent-color: var(--accent);
+}
+
+.quality-options strong {
+  font-size: 1rem;
+  font-weight: 450;
+  display: block;
+}
+
+.quality-options small {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.speed-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.speed-options button {
+  border: 1px solid var(--control-border);
+  padding: 9px 17px;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.speed-options button.active {
+  color: var(--accent);
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+}
+
+.toast {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--control-border);
+  border-radius: 7px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+  width: max-content;
+  max-width: calc(100vw - 32px);
+}
+
+.toast button {
+  display: flex;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.modal-actions .button-primary {
+  min-width: 100px;
+  min-height: 44px;
+}

@@ -1,0 +1,8 @@
+{
+  "lightning": {
+    "path": "/media/models/lightning-226462e0eb86.glb",
+    "bytes": 387292,
+    "sourceBytes": 7710328,
+    "groups": ["stock", "body", "barrel", "fore-end", "details", "guard"]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mxs-unfold-studio",
+  "compatibility_date": "2026-09-06",
+  "assets": { "not_found_handling": "single-page-application" },
+  "send_metrics": false,
+}

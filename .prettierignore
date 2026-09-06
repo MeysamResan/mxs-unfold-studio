@@ -1,0 +1,8 @@
+node_modules
+dist
+.cache
+.wrangler
+public/media
+package-lock.json
+test-results
+playwright-report

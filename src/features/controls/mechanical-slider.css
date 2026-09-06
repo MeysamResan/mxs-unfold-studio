@@ -1,0 +1,261 @@
+@property --range-progress {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 0%;
+}
+
+.separation-control {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 42px;
+  align-items: center;
+  column-gap: 8px;
+  min-width: 0;
+}
+.separation-heading {
+  display: contents;
+  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 500;
+}
+.separation-heading > span {
+  grid-column: 1;
+  grid-row: 1;
+}
+.separation-readout {
+  grid-column: 3;
+  grid-row: 1;
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 1px;
+  font-size: 16px;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  transition: color 180ms ease;
+}
+.separation-readout small {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  transition: color 180ms ease;
+}
+
+.mechanical-range {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  position: relative;
+  height: 58px;
+  margin-top: 0;
+  isolation: isolate;
+  border-radius: 999px;
+  transition: --range-progress 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mechanical-track {
+  position: absolute;
+  top: 22px;
+  right: 18px;
+  left: 18px;
+  height: 12px;
+  pointer-events: none;
+}
+
+/* The thin rail and local swell share one moving mask, keeping the fill aligned. */
+.mechanical-rail {
+  position: absolute;
+  inset: 0;
+  background: var(--range-track);
+  mask-image:
+    radial-gradient(ellipse 52px 4.5px at var(--range-progress) 50%, #000 94%, transparent 100%),
+    linear-gradient(
+      to bottom,
+      transparent calc(50% - 1.5px),
+      #000 calc(50% - 1.5px),
+      #000 calc(50% + 1.5px),
+      transparent calc(50% + 1.5px)
+    );
+  transition: background-color 180ms ease;
+}
+
+.mechanical-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--range-progress);
+  background: linear-gradient(90deg, var(--accent-deep), var(--accent));
+}
+
+.mechanical-thumb {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: var(--range-progress);
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 30px;
+  border: 1px solid #555;
+  border-radius: 7px;
+  background: #262626;
+  box-shadow: 0 3px 8px #00000026;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.mechanical-thumb span {
+  width: 2px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--accent);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.mechanical-scale {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  right: 18px;
+  left: 18px;
+  top: 46px;
+  height: 10px;
+  pointer-events: none;
+}
+
+.mechanical-scale i {
+  width: 1px;
+  height: 3px;
+  border-radius: 1px;
+  background: var(--muted);
+  opacity: calc(0.28 + var(--tick-proximity) * 0.5);
+  transform: scaleY(calc(1 + var(--tick-proximity) * 1.2));
+  transition:
+    background-color 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.mechanical-scale i.major {
+  height: 5px;
+  opacity: calc(0.5 + var(--tick-proximity) * 0.35);
+}
+
+.mechanical-scale i[data-passed] {
+  background: var(--accent);
+}
+
+.mechanical-range input.mechanical-range-input {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 auto;
+  width: 100%;
+  height: 56px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+.mechanical-range-input::-webkit-slider-runnable-track {
+  height: 12px;
+  border: 0;
+  background: transparent;
+}
+
+.mechanical-range-input::-moz-range-track {
+  height: 12px;
+  border: 0;
+  background: transparent;
+}
+
+.mechanical-range-input::-moz-range-progress {
+  background: transparent;
+}
+
+.mechanical-range input.mechanical-range-input::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 36px;
+  height: 36px;
+  margin-top: -12px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mechanical-range input.mechanical-range-input::-moz-range-thumb {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mechanical-range input.mechanical-range-input:focus-visible {
+  outline: none;
+}
+
+.separation-control:has(input:focus-visible) .mechanical-thumb {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.separation-control[data-interacting] .mechanical-range {
+  transition: none;
+}
+
+.separation-control[data-interacting] .mechanical-thumb {
+  transform: translate(-50%, -50%) scale(1.08);
+  border-color: var(--accent);
+  background: #301a1b;
+  box-shadow:
+    0 0 0 4px var(--accent-soft),
+    0 3px 12px var(--range-glow);
+}
+
+.separation-control[data-interacting] .mechanical-thumb span {
+  transform: scaleY(1.15);
+  box-shadow: 0 0 7px var(--range-glow);
+}
+
+.separation-control[data-interacting] .separation-readout,
+.separation-control:has(input:focus-visible) .separation-readout {
+  color: var(--accent);
+}
+
+.separation-control[data-interacting] .separation-readout small {
+  color: var(--accent);
+}
+
+@media (hover: hover) {
+  .separation-control:not([data-interacting]) .mechanical-range:hover .mechanical-thumb {
+    border-color: var(--accent);
+    background: #301a1b;
+    box-shadow:
+      0 0 0 3px var(--accent-soft),
+      0 3px 8px #00000026;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .separation-control *,
+  .separation-control *::before,
+  .separation-control *::after {
+    transition: none !important;
+  }
+}

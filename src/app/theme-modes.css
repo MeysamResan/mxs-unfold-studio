@@ -1,0 +1,56 @@
+:root[data-theme='light'] {
+  color-scheme: light;
+  --background: #f3f3f3;
+  --surface: #fafafa;
+  --surface-raised: #ffffff;
+  --surface-recessed: #ededed;
+  --surface-header: #fafafaf2;
+  --surface-sidebar: #f8f8f8;
+  --surface-glass: #ffffffeb;
+  --surface-label: #fffffff5;
+  --text: #202020;
+  --text-secondary: #545454;
+  --muted: #686868;
+  --text-on-accent: #ffffff;
+  --line: #00000012;
+  --control-border: #00000024;
+  --hover-bg: #00000006;
+  --accent: #bb1522;
+  --accent-deep: #7d0000;
+  --accent-soft: #7d000009;
+  --accent-soft-hover: #7d000014;
+  --accent-border: #7d000042;
+  --accent-highlight: #a30d17;
+  --shadow-soft: 0 8px 30px #0000000d;
+  --shadow-label: 0 3px 12px #00000012;
+  --shadow-dialog: 0 32px 100px #00000026;
+  --modal-backdrop: #20202066;
+  --studio-background: radial-gradient(ellipse at 50% 36%, #ffffff 0%, #f1f1f1 42%, #e5e5e5 100%);
+  --studio-floor: radial-gradient(ellipse, #0000002e, transparent 67%);
+  --watermark: #00000005;
+  --label-leader: #50505070;
+  --label-anchor-stroke: #ffffff;
+  --scroll-thumb: var(--accent-deep);
+  --scroll-thumb-hover: var(--accent);
+  --range-track: #dadada;
+  --range-thumb: #ffffff;
+  --range-thumb-border: #d0d0d0;
+  --range-glow: #bb15221a;
+}
+
+.theme-toggle-orbit {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.theme-toggle-icon {
+  position: absolute;
+  inset: 0;
+}
+
+:root:not([data-theme='light']) .theme-toggle-moon,
+:root[data-theme='light'] .theme-toggle-sun {
+  opacity: 0;
+}
